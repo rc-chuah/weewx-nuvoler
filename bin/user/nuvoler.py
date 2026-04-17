@@ -11,20 +11,6 @@ The protocol is described here:
 
 https://www.nuvoler.com/documentation.php
 
-The Nuvoler API expects GET requests with the following parameters:
-- station_id: Your station ID
-- station_pass: Your station password
-- temperature: Temperature in Celsius
-- rh: Relative Humidity (%)
-- mslp: Mean Sea Level Pressure (hPa)
-- wind_dir: Wind Direction (0-360 degrees)
-- wind_avg: Average Wind Speed (km/h)
-- wind_min: Minimum Wind Speed (km/h)
-- wind_max: Maximum Wind Speed (km/h)
-- precip: Precipitation (mm)
-- uv: UV Index
-- dewpoint: Dew Point (Celsius)
-
 Minimal configuration:
 
 [StdRESTful]
@@ -91,7 +77,7 @@ except ImportError:
 
 
 class Nuvoler(weewx.restx.StdRESTbase):
-    DEFAULT_URL = 'https://nuvoler.com/data/recibir.php'
+    DEFAULT_URL = 'https://www.nuvoler.com/data/recibir.php'
 
     def __init__(self, engine, cfg_dict):
         super(Nuvoler, self).__init__(engine, cfg_dict)
