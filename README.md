@@ -2,6 +2,10 @@
 
 A WeeWX extension that uploads weather data to [Nuvoler.com](https://www.nuvoler.com/)
 
+![License](https://img.shields.io/badge/License-GPLv3-blue.svg)
+![Python](https://img.shields.io/badge/Python-2.7%2B%20%7C%203.x-blue.svg)
+![WeeWX](https://img.shields.io/badge/WeeWX-3.8.0%2B-blue.svg)
+
 ## Overview
 
 **weewx-nuvoler** is a WeeWX extension that automatically uploads your weather station's data to Nuvoler.com, a weather data collection service supporting comprehensive meteorological parameters.
