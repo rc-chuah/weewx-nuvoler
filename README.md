@@ -169,6 +169,12 @@ Expected output will show the constructed URL with test data in multiple unit sy
 | Missing parameters | Ensure your weather station supports all sensor types |
 | Incorrect values | Verify your station's unit system setting; extension handles all unit conversions |
 
+### Test Manually with curl
+
+```bash
+curl "https://www.nuvoler.com/data/recibir.php?station_id=YOUR_STATION_ID&station_pass=YOUR_STATION_PASSWORD&temperature=22.5&rh=65&mslp=1013.2&wind_dir=180&wind_avg=12.5&wind_min=8.0&wind_max=16.0&precip=2.4&uv=5&dewpoint=14.2"
+```
+
 ## License
 
 Copyright © 2026 RC Chuah
