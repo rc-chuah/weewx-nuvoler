@@ -160,6 +160,35 @@ PYTHONPATH=bin python bin/user/nuvoler.py
 
 Expected output will show the constructed URL with test data in multiple unit systems (US, Metric, and MetricWX).
 
+Expected URL output:
+```
+Test 1 - Purely US Units (weewx.US)
+Input: US units (°F, mph, inHg, inches)
+https://www.nuvoler.com/data/recibir.php?station_id=50&station_pass=12345&temperature=22.5&rh=65&mslp=1013.2&wind_dir=180&wind_avg=9.5&wind_max=15.3&wind_min=9.5&precip=2.4&uv=5&dewpoint=14.2
+
+Test 2 - Purely Metric Units (weewx.METRIC)
+Input: Metric units (°C, km/h, mbar, cm)
+https://www.nuvoler.com/data/recibir.php?station_id=50&station_pass=12345&temperature=22.5&rh=65&mslp=1013.2&wind_dir=180&wind_avg=9.4&wind_max=15.1&wind_min=9.4&precip=2.4&uv=5&dewpoint=14.2
+
+Test 3 - Purely MetricWX Units (weewx.METRICWX)
+Input: MetricWX units (°C, m/s, hPa, mm)
+https://www.nuvoler.com/data/recibir.php?station_id=50&station_pass=12345&temperature=22.5&rh=65&mslp=1013.2&wind_dir=180&wind_avg=9.4&wind_max=15.1&wind_min=9.4&precip=2.4&uv=5&dewpoint=14.2
+```
+
+Expected Outputs of All Parameters (for all three tests - should be identical):
+```
+temperature=22.5 (°C)
+rh=65 (%)
+mslp=1013.2 (hPa)
+wind_dir=180 (°)
+wind_avg=9.4 or 9.5 (knots from m/s)
+wind_max=15.1 or 15.3 (knots from m/s)
+wind_min=9.4 or 9.5 (knots from m/s)
+precip=2.4 (mm hourRain)
+uv=5 (index)
+dewpoint=14.2 (°C)
+```
+
 ### Common Issues
 
 | Issue | Solution |
@@ -174,6 +203,18 @@ Expected output will show the constructed URL with test data in multiple unit sy
 ```bash
 curl "https://www.nuvoler.com/data/recibir.php?station_id=YOUR_STATION_ID&station_pass=YOUR_STATION_PASSWORD&temperature=22.5&rh=65&mslp=1013.2&wind_dir=180&wind_avg=12.5&wind_min=8.0&wind_max=16.0&precip=2.4&uv=5&dewpoint=14.2"
 ```
+
+## Dependencies
+
+This extension uses **only Python's standard library**. The following modules are utilized:
+
+- `Queue` (Python 2) / `queue` (Python 3)
+- `urllib` / `urllib.parse` (Python 3)
+- `sys`
+- `time`
+- `logging` / `syslog`
+
+**No external pip packages are required.**
 
 ## License
 
