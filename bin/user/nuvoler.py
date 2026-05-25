@@ -147,7 +147,7 @@ class NuvolerThread(weewx.restx.RESTThread):
         - All metrics converted to METRICWX standard (SI units)
         - Temperature: Celsius
         - Humidity: %
-        - Pressure: hPa
+        - Pressure: mbar/hPa
         - Hourly Precipitation: mm
         - Wind speeds (wind_avg, wind_min, wind_max): knots (converted from m/s)
         - UV Index: unitless
@@ -158,7 +158,7 @@ class NuvolerThread(weewx.restx.RESTThread):
             logdbg("url: %s" % url)
 
         # Convert to METRICWX units (SI base units)
-        # METRICWX: temperature=°C, speed=m/s, pressure=hPa, rain=mm
+        # METRICWX: temperature=°C, speed=m/s, pressure=mbar/hPa, rain=mm
         metric_record = weewx.units.to_METRICWX(record)
 
         # Build query parameters
@@ -174,7 +174,7 @@ class NuvolerThread(weewx.restx.RESTThread):
         if 'outHumidity' in metric_record and metric_record['outHumidity'] is not None:
             parts['rh'] = int(metric_record['outHumidity'])
 
-        # Mean Sea Level Pressure (hPa)
+        # Mean Sea Level Pressure (mbar/hPa)
         if 'barometer' in metric_record and metric_record['barometer'] is not None:
             # barometer in METRICWX is in hectopascals (hPa)
             parts['mslp'] = round(metric_record['barometer'], 1)
@@ -261,7 +261,7 @@ if __name__ == "__main__":
     print()
     
     # Test 2: Purely Metric Units (weewx.METRIC)
-    # METRIC: temperature=°C, speed=km/h, pressure=mbar, rain=cm
+    # METRIC: temperature=°C, speed=km/h, pressure=mbar/hPa, rain=cm
     r_metric = {
         'dateTime': int(time.time() + 0.5),
         'usUnits': weewx.METRIC,
@@ -278,14 +278,14 @@ if __name__ == "__main__":
     
     print("=" * 80)
     print("Test 2 - Purely Metric Units (weewx.METRIC)")
-    print("Input: Metric units (°C, km/h, mbar, cm)")
+    print("Input: Metric units (°C, km/h, mbar/hPa, cm)")
     print("=" * 80)
     url_metric = t.format_url(r_metric)
     print(url_metric)
     print()
     
     # Test 3: Purely MetricWX Units (weewx.METRICWX)
-    # METRICWX: temperature=°C, speed=m/s, pressure=mbar, rain=mm
+    # METRICWX: temperature=°C, speed=m/s, pressure=mbar/hPa, rain=mm
     r_metricwx = {
         'dateTime': int(time.time() + 0.5),
         'usUnits': weewx.METRICWX,
@@ -302,7 +302,7 @@ if __name__ == "__main__":
     
     print("=" * 80)
     print("Test 3 - Purely MetricWX Units (weewx.METRICWX)")
-    print("Input: MetricWX units (°C, m/s, mbar, mm)")
+    print("Input: MetricWX units (°C, m/s, mbar/hPa, mm)")
     print("=" * 80)
     url_metricwx = t.format_url(r_metricwx)
     print(url_metricwx)
@@ -313,7 +313,7 @@ if __name__ == "__main__":
     print("=" * 80)
     print("temperature=22.5 (°C)")
     print("rh=65 (%)")
-    print("mslp=1013.2 (hPa)")
+    print("mslp=1013.2 (mbar/hPa)")
     print("wind_dir=180 (°)")
     print("wind_avg=9.4 or 9.5 (knots from m/s)")
     print("wind_max=15.1 or 15.3 (knots from m/s)")
