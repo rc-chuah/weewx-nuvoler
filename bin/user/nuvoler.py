@@ -316,7 +316,7 @@ if __name__ == "__main__":
     print("mslp=1013.2 (hPa)")
     print("wind_dir=180 (°)")
     print("wind_avg=9.4 or 9.5 (knots from m/s)")
-    print("wind_max=15.1 or 15.2 (knots from m/s)")
+    print("wind_max=15.1 or 15.3 (knots from m/s)")
     print("wind_min=9.4 or 9.5 (knots from m/s)")
     print("precip=2.4 (mm hourRain)")
     print("uv=5 (index)")
