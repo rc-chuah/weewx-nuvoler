@@ -12,7 +12,7 @@ A WeeWX extension that uploads weather data to [Nuvoler.com](https://www.nuvoler
 
 ## Features
 
-- ✅ Automatic unit conversion to metric (SI units)
+- ✅ Automatic unit conversion to metric (SI units) with wind in knots
 - ✅ Uploads all major weather parameters (temperature, humidity, pressure, wind, rain, UV, dewpoint)
 - ✅ Lightweight with zero external dependencies
 - ✅ Compatible with Python 2.7+ and Python 3.x
@@ -74,8 +74,8 @@ Optional configuration:
         # Enable or disable uploads (default: true)
         enabled = true
         
-        # Server URL (default: https://nuvoler.com/data/recibir.php)
-        server_url = https://nuvoler.com/data/recibir.php
+        # Server URL (default: https://www.nuvoler.com/data/recibir.php)
+        server_url = https://www.nuvoler.com/data/recibir.php
 ```
 
 ### Step 5: Restart WeeWX
@@ -90,7 +90,7 @@ The extension performs the following tasks:
 
 1. **Monitors** archive records from your WeeWX weather station
 2. **Extracts** weather data (temperature, humidity, pressure, wind, rain, UV, dewpoint)
-3. **Converts** all values to metric units (Celsius, m/s, hPa, etc.)
+3. **Converts** all values to metric units (Celsius, hPa, mm, knots for wind, etc.)
 4. **Uploads** the data to Nuvoler via HTTP GET for each new archive record
 
 ## Supported Parameters
@@ -101,9 +101,9 @@ The extension performs the following tasks:
 | rh | % | outHumidity | Relative humidity |
 | mslp | hPa | barometer | Mean sea level pressure |
 | wind_dir | ° | windDir | Wind direction |
-| wind_avg | m/s | windSpeed | Average wind speed |
-| wind_min | m/s | windSpeed | Minimum wind speed (estimated) |
-| wind_max | m/s | windGust | Maximum wind speed/gust |
+| wind_avg | knots | windSpeed | Average wind speed |
+| wind_min | knots | windSpeed | Minimum wind speed (estimated from windSpeed) |
+| wind_max | knots | windGust | Maximum wind speed/gust |
 | precip | mm | hourRain | Hourly precipitation |
 | uv | Index | UV | UV index |
 | dewpoint | °C | dewpoint | Dew point |
@@ -113,9 +113,21 @@ The extension performs the following tasks:
 This extension uses HTTP GET to upload data to Nuvoler with the following format:
 
 ```
-GET /data/recibir.php?station_id=50&station_pass=12345&temperature=22.5&rh=65&... HTTP/1.1
-Host: nuvoler.com
+GET /data/recibir.php?station_id=50&station_pass=12345&temperature=22.5&rh=65&mslp=1013.2&wind_dir=180&wind_avg=12.5&wind_min=8.0&wind_max=16.0&precip=2.4&uv=5&dewpoint=14.2 HTTP/1.1
+Host: www.nuvoler.com
 ```
+
+## Unit Conversion Details
+
+The extension converts your station's native units to the following for Nuvoler:
+
+- **Temperature:** Converted to Celsius (°C)
+- **Pressure:** Converted to hectopascals (hPa)
+- **Precipitation:** Converted to millimeters (mm)
+- **Wind Speed:** Converted to knots (from m/s internally)
+- **Other Parameters:** Humidity (%), UV index (unitless), Wind direction (°)
+
+This ensures consistent data format regardless of your station's configured unit system (US, Metric, or MetricWX).
 
 ## Troubleshooting
 
@@ -146,7 +158,7 @@ cd /usr/share/weewx
 PYTHONPATH=bin python bin/user/nuvoler.py
 ```
 
-Expected output will show the constructed URL with test data.
+Expected output will show the constructed URL with test data in multiple unit systems (US, Metric, and MetricWX).
 
 ### Common Issues
 
@@ -155,9 +167,10 @@ Expected output will show the constructed URL with test data.
 | No data uploading | Verify station_id and station_pass in weewx.conf |
 | Connection errors | Check internet connectivity and Nuvoler server status |
 | Missing parameters | Ensure your weather station supports all sensor types |
-| Wrong units | Verify your station's unit system setting |
+| Incorrect values | Verify your station's unit system setting; extension handles all unit conversions |
 
 ## License
+
 Copyright © 2026 RC Chuah
 
 Distributed under the terms of the [GNU General Public License (GPLv3)](LICENSE.md)
