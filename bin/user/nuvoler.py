@@ -146,6 +146,7 @@ class NuvolerThread(weewx.restx.RESTThread):
         Converts record to METRICWX units and builds query parameters:
         - All metrics converted to METRICWX standard (SI units)
         - Temperature: Celsius
+        - Humidity: %
         - Pressure: hPa
         - Hourly Precipitation: mm
         - Wind speeds (wind_avg, wind_min, wind_max): knots (converted from m/s)
