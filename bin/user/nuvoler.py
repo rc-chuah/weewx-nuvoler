@@ -40,7 +40,7 @@ import weewx.units
 from weeutil.weeutil import to_bool
 
 
-VERSION = "0.2"
+VERSION = "0.1"
 
 
 # Logging compatibility
