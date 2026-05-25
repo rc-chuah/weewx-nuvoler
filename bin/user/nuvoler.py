@@ -42,6 +42,9 @@ from weeutil.weeutil import to_bool
 
 VERSION = "0.1"
 
+# Conversion constant: m/s to knots
+MS_TO_KNOTS = 1.94384  # 1 m/s = 1.94384 knots
+
 
 # Logging compatibility
 try:
@@ -143,7 +146,10 @@ class NuvolerThread(weewx.restx.RESTThread):
     def format_url(self, record):
         """Build the URL for GET request to Nuvoler API
         
-        Converts record to metric units and builds query parameters
+        Converts record to metric units and builds query parameters:
+        - All metrics converted to METRICWX standard (SI units)
+        - Wind speeds (wind_avg, wind_min, wind_max) converted to knots
+        - Hourly precipitation in millimeters
         """
         url = self.server_url
         if weewx.debug >= 2:
@@ -174,21 +180,26 @@ class NuvolerThread(weewx.restx.RESTThread):
         if 'windDir' in metric_record and metric_record['windDir'] is not None:
             parts['wind_dir'] = int(metric_record['windDir'])
 
-        # Wind Speed (km/h) - Average
+        # Wind Speed (knots) - Average
+        # metric_record windSpeed is in m/s, convert to knots
         if 'windSpeed' in metric_record and metric_record['windSpeed'] is not None:
-            parts['wind_avg'] = round(metric_record['windSpeed'], 1)
+            wind_knots = metric_record['windSpeed'] * MS_TO_KNOTS
+            parts['wind_avg'] = round(wind_knots, 1)
 
-        # Wind Gust (km/h) - Maximum
+        # Wind Gust (knots) - Maximum
+        # metric_record windGust is in m/s, convert to knots
         if 'windGust' in metric_record and metric_record['windGust'] is not None:
-            parts['wind_max'] = round(metric_record['windGust'], 1)
+            gust_knots = metric_record['windGust'] * MS_TO_KNOTS
+            parts['wind_max'] = round(gust_knots, 1)
 
-        # Wind minimum - WeeWX may not have this, use windSpeed as fallback
+        # Wind minimum - WeeWX may not have this, use windSpeed as fallback (in knots)
         if 'windSpeed' in metric_record and metric_record['windSpeed'] is not None:
-            parts['wind_min'] = round(metric_record['windSpeed'], 1)
+            wind_knots = metric_record['windSpeed'] * MS_TO_KNOTS
+            parts['wind_min'] = round(wind_knots, 1)
 
-        # Precipitation (mm)
-        if 'rain' in metric_record and metric_record['rain'] is not None:
-            parts['precip'] = round(metric_record['rain'], 1)
+        # Hourly Precipitation (mm)
+        if 'hourRain' in metric_record and metric_record['hourRain'] is not None:
+            parts['precip'] = round(metric_record['hourRain'], 1)
 
         # UV Index
         if 'UV' in metric_record and metric_record['UV'] is not None:
@@ -228,16 +239,16 @@ if __name__ == "__main__":
         'usUnits': weewx.US,
         'outTemp': 72.5,
         'outHumidity': 65,
-        'windSpeed': 5.6,
-        'windGust': 8.9,
+        'windSpeed': 10.9,  # ~6 knots in m/s
+        'windGust': 17.6,   # ~9.5 knots in m/s
         'windDir': 180,
         'barometer': 1013.25,
-        'rain': 2.4,
+        'hourRain': 2.4,
         'UV': 5,
         'dewpoint': 14.2
     }
     
-    print("Test 1 - US Units:")
+    print("Test 1 - US Units (converted to metric with wind in knots):")
     url_us = t.format_url(r_us)
     print(url_us)
     print()
@@ -248,15 +259,15 @@ if __name__ == "__main__":
         'usUnits': weewx.METRIC,
         'outTemp': 22.5,
         'outHumidity': 65,
-        'windSpeed': 12.5,
-        'windGust': 16.0,
+        'windSpeed': 6.0,   # ~11.6 knots in m/s
+        'windGust': 9.5,    # ~18.4 knots in m/s
         'windDir': 180,
         'barometer': 1013.2,
-        'rain': 2.4,
+        'hourRain': 2.4,
         'UV': 5,
         'dewpoint': 14.2
     }
     
-    print("Test 2 - Metric Units:")
+    print("Test 2 - Metric Units (wind converted to knots):")
     url_metric = t.format_url(r_metric)
     print(url_metric)
