@@ -285,7 +285,7 @@ if __name__ == "__main__":
     print()
     
     # Test 3: Purely MetricWX Units (weewx.METRICWX)
-    # METRICWX: temperature=°C, speed=m/s, pressure=hPa, rain=mm
+    # METRICWX: temperature=°C, speed=m/s, pressure=mbar, rain=mm
     r_metricwx = {
         'dateTime': int(time.time() + 0.5),
         'usUnits': weewx.METRICWX,
@@ -294,7 +294,7 @@ if __name__ == "__main__":
         'windSpeed': 4.86,             # 4.86 m/s → 4.86 m/s → 9.44 knots
         'windGust': 7.78,              # 7.78 m/s → 7.78 m/s → 15.10 knots
         'windDir': 180,                # 180°
-        'barometer': 1013.2,           # 1013.2 hPa → 1013.2 hPa
+        'barometer': 1013.2,           # 1013.2 mbar → 1013.2 hPa
         'hourRain': 2.4,               # 2.4 mm → 2.4 mm
         'UV': 5,                       # 5
         'dewpoint': 14.2               # 14.2°C → 14.2°C
@@ -302,7 +302,7 @@ if __name__ == "__main__":
     
     print("=" * 80)
     print("Test 3 - Purely MetricWX Units (weewx.METRICWX)")
-    print("Input: MetricWX units (°C, m/s, hPa, mm)")
+    print("Input: MetricWX units (°C, m/s, mbar, mm)")
     print("=" * 80)
     url_metricwx = t.format_url(r_metricwx)
     print(url_metricwx)
