@@ -240,12 +240,12 @@ if __name__ == "__main__":
     r_us = {
         'dateTime': int(time.time() + 0.5),
         'usUnits': weewx.US,
-        'outTemp': 72.5,              # 72.5°F → 22.5°C
+        'outTemp': 72.5,               # 72.5°F → 22.5°C
         'outHumidity': 65,             # 65% (unitless)
         'windSpeed': 10.9,             # 10.9 mph → 4.87 m/s → 9.46 knots
         'windGust': 17.6,              # 17.6 mph → 7.87 m/s → 15.28 knots
         'windDir': 180,                # 180° (unitless)
-        'barometer': 1013.25,          # 1013.25 inHg → 1013.2 hPa
+        'barometer': 29.92,            # 29.92 inHg → 1013.2 hPa
         'hourRain': 0.094488,          # 0.094488 inches → 2.4 mm
         'UV': 5,                       # 5 (unitless)
         'dewpoint': 57.56              # 57.56°F → 14.2°C
