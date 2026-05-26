@@ -148,8 +148,9 @@ class NuvolerThread(weewx.restx.RESTThread):
         - Temperature: Celsius
         - Humidity: %
         - Pressure: mbar/hPa
-        - Hourly Precipitation: mm
+        - Hourly Precipitation: mm (L/m²)
         - Wind speeds (wind_avg, wind_min, wind_max): knots (converted from m/s)
+        - Wind direction: °
         - UV Index: unitless
         - Dew Point: Celsius
         """
@@ -158,7 +159,7 @@ class NuvolerThread(weewx.restx.RESTThread):
             logdbg("url: %s" % url)
 
         # Convert to METRICWX units (SI base units)
-        # METRICWX: temperature=°C, speed=m/s, pressure=mbar/hPa, rain=mm
+        # METRICWX: temperature=°C, speed=m/s, pressure=mbar/hPa, rain=mm(L/m²)
         metric_record = weewx.units.to_METRICWX(record)
 
         # Build query parameters
@@ -200,7 +201,7 @@ class NuvolerThread(weewx.restx.RESTThread):
             wind_knots = weewx.units.mps_to_knot(metric_record['windSpeed'])
             parts['wind_min'] = round(wind_knots, 1)
 
-        # Hourly Precipitation (mm)
+        # Hourly Precipitation (mm) (L/m²)
         if 'hourRain' in metric_record and metric_record['hourRain'] is not None:
             parts['precip'] = round(metric_record['hourRain'], 1)
 
@@ -246,8 +247,8 @@ if __name__ == "__main__":
         'windSpeed': 10.9,             # 10.9 mph → 4.87 m/s → 9.46 knots
         'windGust': 17.6,              # 17.6 mph → 7.87 m/s → 15.28 knots
         'windDir': 180,                # 180° (unitless)
-        'barometer': 29.92,            # 29.92 inHg → 1013.2 hPa
-        'hourRain': 0.094488,          # 0.094488 inches → 2.4 mm
+        'barometer': 29.92,            # 29.92 inHg → 1013.2 mbar/hPa
+        'hourRain': 0.094488,          # 0.094488 inches → 2.4 mm (L/m²)
         'UV': 5,                       # 5 (unitless)
         'dewpoint': 57.56              # 57.56°F → 14.2°C
     }
@@ -266,13 +267,13 @@ if __name__ == "__main__":
         'dateTime': int(time.time() + 0.5),
         'usUnits': weewx.METRIC,
         'outTemp': 22.5,               # 22.5°C → 22.5°C
-        'outHumidity': 65,             # 65%
+        'outHumidity': 65,             # 65% (unitless)
         'windSpeed': 17.5,             # 17.5 km/h → 4.86 m/s → 9.45 knots
         'windGust': 28.0,              # 28.0 km/h → 7.78 m/s → 15.11 knots
-        'windDir': 180,                # 180°
-        'barometer': 1013.2,           # 1013.2 mbar → 1013.2 hPa
-        'hourRain': 0.24,              # 0.24 cm → 2.4 mm
-        'UV': 5,                       # 5
+        'windDir': 180,                # 180° (unitless)
+        'barometer': 1013.2,           # 1013.2 mbar/hPa → 1013.2 mbar/hPa
+        'hourRain': 0.24,              # 0.24 cm → 2.4 mm (L/m²)
+        'UV': 5,                       # 5 (unitless)
         'dewpoint': 14.2               # 14.2°C → 14.2°C
     }
     
@@ -285,24 +286,24 @@ if __name__ == "__main__":
     print()
     
     # Test 3: Purely MetricWX Units (weewx.METRICWX)
-    # METRICWX: temperature=°C, speed=m/s, pressure=mbar/hPa, rain=mm
+    # METRICWX: temperature=°C, speed=m/s, pressure=mbar/hPa, rain=mm(L/m²)
     r_metricwx = {
         'dateTime': int(time.time() + 0.5),
         'usUnits': weewx.METRICWX,
         'outTemp': 22.5,               # 22.5°C → 22.5°C
-        'outHumidity': 65,             # 65%
+        'outHumidity': 65,             # 65% (unitless)
         'windSpeed': 4.86,             # 4.86 m/s → 4.86 m/s → 9.44 knots
         'windGust': 7.78,              # 7.78 m/s → 7.78 m/s → 15.10 knots
-        'windDir': 180,                # 180°
-        'barometer': 1013.2,           # 1013.2 mbar → 1013.2 hPa
-        'hourRain': 2.4,               # 2.4 mm → 2.4 mm
-        'UV': 5,                       # 5
+        'windDir': 180,                # 180° (unitless)
+        'barometer': 1013.2,           # 1013.2 mbar/hPa → 1013.2 mbar/hPa
+        'hourRain': 2.4,               # 2.4 mm (L/m²) → 2.4 mm (L/m²)
+        'UV': 5,                       # 5 (unitless)
         'dewpoint': 14.2               # 14.2°C → 14.2°C
     }
     
     print("=" * 80)
     print("Test 3 - Purely MetricWX Units (weewx.METRICWX)")
-    print("Input: MetricWX units (°C, m/s, mbar/hPa, mm)")
+    print("Input: MetricWX units (°C, m/s, mbar/hPa, mm (L/m²)")
     print("=" * 80)
     url_metricwx = t.format_url(r_metricwx)
     print(url_metricwx)
@@ -318,7 +319,7 @@ if __name__ == "__main__":
     print("wind_avg=9.4 or 9.5 (knots from m/s)")
     print("wind_max=15.1 or 15.3 (knots from m/s)")
     print("wind_min=9.4 or 9.5 (knots from m/s)")
-    print("precip=2.4 (mm hourRain)")
+    print("precip=2.4 (mm (L/m²) hourRain)")
     print("uv=5 (index)")
     print("dewpoint=14.2 (°C)")
     print("=" * 80)
