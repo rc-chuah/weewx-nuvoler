@@ -90,7 +90,7 @@ The extension performs the following tasks:
 
 1. **Monitors** archive records from your WeeWX weather station
 2. **Extracts** weather data (temperature, humidity, pressure, wind, rain, UV, dewpoint)
-3. **Converts** all values to metric units (Celsius, mbar/hPa, mm, knots for wind, etc.)
+3. **Converts** all values to metric units (Celsius, mbar/hPa, mm (L/m²), knots for wind, etc.)
 4. **Uploads** the data to Nuvoler via HTTP GET for each new archive record
 
 ## Supported Parameters
@@ -102,9 +102,9 @@ The extension performs the following tasks:
 | mslp | mbar/hPa | barometer | Mean sea level pressure |
 | wind_dir | ° | windDir | Wind direction |
 | wind_avg | knots | windSpeed | Average wind speed |
-| wind_min | knots | windSpeed | Minimum wind speed (estimated from windSpeed) |
+| wind_min | knots | windSpeed | Minimum wind speed (estimated from windSpeed and windGust) |
 | wind_max | knots | windGust | Maximum wind speed/gust |
-| precip | mm | hourRain | Hourly precipitation |
+| precip | mm (L/m²) | hourRain | Hourly precipitation |
 | uv | Index | UV | UV index |
 | dewpoint | °C | dewpoint | Dew point |
 
@@ -123,7 +123,7 @@ The extension converts your station's native units to the following for Nuvoler:
 
 - **Temperature:** Converted to Celsius (°C)
 - **Pressure:** Converted to millibars/hectopascals (mbar/hPa)
-- **Precipitation:** Converted to millimeters (mm)
+- **Precipitation:** Converted to millimeters/litres per square meter (mm (L/m²))
 - **Wind Speed:** Converted to knots (from m/s internally)
 - **Other Parameters:** Humidity (%), UV index (unitless), Wind direction (°)
 
@@ -171,7 +171,7 @@ Input: Metric units (°C, km/h, mbar/hPa, cm)
 https://www.nuvoler.com/data/recibir.php?station_id=50&station_pass=12345&temperature=22.5&rh=65&mslp=1013.2&wind_dir=180&wind_avg=9.4&wind_max=15.1&wind_min=9.4&precip=2.4&uv=5&dewpoint=14.2
 
 Test 3 - Purely MetricWX Units (weewx.METRICWX)
-Input: MetricWX units (°C, m/s, mbar/hPa, mm)
+Input: MetricWX units (°C, m/s, mbar/hPa, mm (L/m²))
 https://www.nuvoler.com/data/recibir.php?station_id=50&station_pass=12345&temperature=22.5&rh=65&mslp=1013.2&wind_dir=180&wind_avg=9.4&wind_max=15.1&wind_min=9.4&precip=2.4&uv=5&dewpoint=14.2
 ```
 
@@ -184,7 +184,7 @@ wind_dir=180 (°)
 wind_avg=9.4 or 9.5 (knots from m/s)
 wind_max=15.1 or 15.3 (knots from m/s)
 wind_min=9.4 or 9.5 (knots from m/s)
-precip=2.4 (mm hourRain)
+precip=2.4 (mm (L/m²) hourRain)
 uv=5 (index)
 dewpoint=14.2 (°C)
 ```
