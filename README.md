@@ -212,6 +212,7 @@ This extension uses **only Python's standard library**. The following modules ar
 - `urllib` / `urllib.parse` (Python 3)
 - `sys`
 - `time`
+- `math`
 - `logging` / `syslog`
 
 **No external pip packages are required.**
