@@ -30,6 +30,13 @@ try:
 except ImportError:
     from urllib.parse import urlencode
 
+try:
+    # Python 3
+    MAXSIZE = sys.maxsize
+except AttributeError:
+    # Python 2
+    MAXSIZE = sys.maxint
+
 import sys
 import time
 import math
@@ -38,6 +45,7 @@ import weewx
 import weewx.manager
 import weewx.restx
 import weewx.units
+import weewx.wxformulas
 from weeutil.weeutil import to_bool
 
 
@@ -584,6 +592,7 @@ if __name__ == "__main__":
     class FakeMgr(object):
         table_name = 'fake'
 
+        # noinspection PyUnusedLocal,PyMethodMayBeStatic
         def getSql(self, query, value):
             return None
 
