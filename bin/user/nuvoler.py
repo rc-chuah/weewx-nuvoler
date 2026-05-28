@@ -21,21 +21,18 @@ Minimal configuration:
 
 # Handle Python 2 vs Python 3 differences
 try:
+    # noinspection PyCompatibility
     from Queue import Queue
 except ImportError:
+    # noinspection PyCompatibility
     from queue import Queue
 
 try:
+    # noinspection PyCompatibility
     from urllib import urlencode
 except ImportError:
+    # noinspection PyCompatibility
     from urllib.parse import urlencode
-
-try:
-    # Python 3
-    MAXSIZE = sys.maxsize
-except AttributeError:
-    # Python 2
-    MAXSIZE = sys.maxint
 
 import sys
 import time
