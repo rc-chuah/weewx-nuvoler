@@ -146,7 +146,7 @@ class Weibull3ParamEstimator(object):
     DEFAULT_SCALE = 3.0       # λ: scale parameter (typical variation ~3 m/s)
     
     # Calibration precision parameters
-    GAMMA_APPROXIMATION_ITERATIONS = 100  # For Lanczos gamma function approximation
+    GAMMA_APPROXIMATION_ITERATIONS = 100   # For Lanczos gamma function approximation
     NUMERICAL_TOLERANCE = 1e-8             # For numerical stability checks
 
     @staticmethod
