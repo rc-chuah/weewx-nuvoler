@@ -31,7 +31,7 @@ A WeeWX extension that uploads weather data to [Nuvoler.com](https://www.nuvoler
 
 ### Step 1: Get Credentials
 
-Visit [Nuvoler.com](https://www.nuvoler.com/) to register your weather station and obtain station ID and password.
+Visit [Sign Up - Join Nuvoler](https://www.nuvoler.com/signup.php) to register your weather station and obtain station ID and password.
 
 ### Step 2: Download the Extension
 
