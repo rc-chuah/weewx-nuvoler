@@ -233,3 +233,11 @@ Distributed under the terms of the [GNU General Public License (GPLv3)](LICENSE.
 - **WeeWX:** https://www.weewx.com/
 - **Nuvoler:** https://www.nuvoler.com/
 - **WeeWX Documentation:** https://www.weewx.com/docs/
+- **Nuvoler Documentation:** https://www.nuvoler.com/documentation.php
+- **weewx-windy:** https://github.com/Jterrettaz/weewx-windy
+- **Weibull Distribution:** https://en.wikipedia.org/wiki/Weibull_distribution
+- **Rayleigh Distribution:** https://en.wikipedia.org/wiki/Rayleigh_distribution
+- **Gumbel Distribution:** https://en.wikipedia.org/wiki/Gumbel_distribution
+- **Lanczos Approximation:** https://en.wikipedia.org/wiki/Lanczos_approximation
+- **Extreme Value Theory:** https://en.wikipedia.org/wiki/Extreme_value_theory
+- **WMO Wind Standards:** https://library.wmo.int/
