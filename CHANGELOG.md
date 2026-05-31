@@ -1,4 +1,4 @@
-# weewx-nuvoler v0.1 - 31 May 2026
+# weewx-nuvoler v0.1 - 1 June 2026
 * Initial release based on weewx-windy template
 * Supports Nuvoler API (https://www.nuvoler.com/documentation.php)
 * Automatic weather data conversion to metric/SI units (temperature in °C, pressure in mbar/hPa, precipitation in mm (L/m²))
