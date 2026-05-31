@@ -1127,7 +1127,7 @@ if __name__ == "__main__":
     print("wind_dir=180 (°)")
     print("wind_avg=9.4 or 9.5 (knots)")
     print("wind_max=15.1 or 15.3 (knots)")
-    print("wind_min≈4.5-5.5 (knots from 3-parameter Weibull)")
+    print("wind_min≈4.1 to 7.5 (knots from advanced estimation)")
     print("precip=2.4 (mm (L/m²))")
     print("uv=5 (index)")
     print("dewpoint=14.2 (°C)")
