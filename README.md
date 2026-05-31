@@ -160,33 +160,74 @@ PYTHONPATH=bin python bin/user/nuvoler.py
 
 Expected output will show the constructed URL with test data in multiple unit systems (US, Metric, and MetricWX).
 
-Expected URL output:
+Expected output:
 ```
+================================================================================
 Test 1 - Purely US Units (weewx.US)
 Input: US units (°F, mph, inHg, inches)
-https://www.nuvoler.com/data/recibir.php?station_id=50&station_pass=12345&temperature=22.5&rh=65&mslp=1013.2&wind_dir=180&wind_avg=9.5&wind_max=15.3&wind_min=9.5&precip=2.4&uv=5&dewpoint=14.2
+================================================================================
+https://www.nuvoler.com/data/recibir.php?station_id=50&station_pass=12345&temperature=22.5&rh=65&mslp=1013.2&wind_dir=180&wind_avg=9.5&wind_max=15.3&wind_min=4.2&precip=2.4&uv=5&dewpoint=14.2
 
+================================================================================
 Test 2 - Purely Metric Units (weewx.METRIC)
 Input: Metric units (°C, km/h, mbar/hPa, cm)
-https://www.nuvoler.com/data/recibir.php?station_id=50&station_pass=12345&temperature=22.5&rh=65&mslp=1013.2&wind_dir=180&wind_avg=9.4&wind_max=15.1&wind_min=9.4&precip=2.4&uv=5&dewpoint=14.2
+================================================================================
+https://www.nuvoler.com/data/recibir.php?station_id=50&station_pass=12345&temperature=22.5&rh=65&mslp=1013.2&wind_dir=180&wind_avg=9.4&wind_max=15.1&wind_min=4.1&precip=2.4&uv=5&dewpoint=14.2
 
+================================================================================
 Test 3 - Purely MetricWX Units (weewx.METRICWX)
-Input: MetricWX units (°C, m/s, mbar/hPa, mm (L/m²))
-https://www.nuvoler.com/data/recibir.php?station_id=50&station_pass=12345&temperature=22.5&rh=65&mslp=1013.2&wind_dir=180&wind_avg=9.4&wind_max=15.1&wind_min=9.4&precip=2.4&uv=5&dewpoint=14.2
-```
+Input: MetricWX units (°C, m/s, mbar/hPa, mm (L/m²)
+================================================================================
+https://www.nuvoler.com/data/recibir.php?station_id=50&station_pass=12345&temperature=22.5&rh=65&mslp=1013.2&wind_dir=180&wind_avg=9.4&wind_max=15.1&wind_min=4.1&precip=2.4&uv=5&dewpoint=14.2
 
-Expected Outputs of All Parameters (for all three tests - should be identical):
-```
+================================================================================
+3-PARAMETER WEIBULL ESTIMATION ANALYSIS
+================================================================================
+
+Test Case: wind_avg=4.86 m/s (~9.45 knots), wind_max=7.78 m/s (~15.1 knots)
+
+================================================================================
+METHOD 1: 3-Parameter Weibull Distribution
+================================================================================
+Estimated parameters:
+  θ (location) = 1.458 m/s (minimum threshold)
+  k (shape)    = 2.000 (distribution curvature)
+  λ (scale)    = 2.946 m/s (spread parameter)
+
+  5% percentile (wind_min): 2.125 m/s (4.13 knots)
+  10% percentile (wind_min): 2.414 m/s (4.69 knots)
+  25% percentile (wind_min): 3.038 m/s (5.91 knots)
+  50% percentile (wind_min): 3.911 m/s (7.60 knots)
+
+Theoretical statistics:
+  Mean = 4.069 m/s (observed avg: 4.86 m/s)
+  Std Dev = 1.365 m/s
+
+  Estimated minimum (5th percentile): 2.125 m/s (4.13 knots)
+
+================================================================================
+COMPARISON: All Available Methods
+================================================================================
+3-Parameter Weibull (PRIMARY):  2.125 m/s (4.13 knots)
+2-Parameter Weibull (FALLBACK): 3.871 m/s (7.53 knots)
+Climatological Ratio (FALLBACK):2.945 m/s (5.73 knots)
+Extreme Value Theory (FALLBACK):3.112 m/s (6.05 knots)
+Auto-selected method:           2.125 m/s (4.13 knots)
+
+================================================================================
+EXPECTED OUTPUTS (for all three unit tests - should be identical):
+================================================================================
 temperature=22.5 (°C)
 rh=65 (%)
 mslp=1013.2 (mbar/hPa)
 wind_dir=180 (°)
-wind_avg=9.4 or 9.5 (knots from m/s)
-wind_max=15.1 or 15.3 (knots from m/s)
-wind_min=9.4 or 9.5 (knots from m/s)
-precip=2.4 (mm (L/m²) hourRain)
+wind_avg=9.4 or 9.5 (knots)
+wind_max=15.1 or 15.3 (knots)
+wind_min≈4.1 to 7.5 (knots from advanced estimation)
+precip=2.4 (mm (L/m²))
 uv=5 (index)
 dewpoint=14.2 (°C)
+================================================================================
 ```
 
 ### Common Issues
