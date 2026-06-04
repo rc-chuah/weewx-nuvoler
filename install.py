@@ -19,8 +19,8 @@ class NuvolerInstaller(ExtensionInstaller):
             config={
                 'StdRESTful': {
                     'Nuvoler': {
-                        'station_id': 'replace_me',
-                        'station_pass': 'replace_me'
+                        'station_id': 'YOUR_STATION_ID_HERE',
+                        'station_pass': 'YOUR_STATION_PASSWORD_HERE'
                     }
                 }
             },
