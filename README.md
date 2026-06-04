@@ -58,8 +58,8 @@ Edit `/etc/weewx/weewx.conf` and add the following section:
 ```ini
 [StdRESTful]
     [[Nuvoler]]
-        station_id = YOUR_STATION_ID
-        station_pass = YOUR_STATION_PASSWORD
+        station_id = YOUR_STATION_ID_HERE
+        station_pass = YOUR_STATION_PASSWORD_HERE
 ```
 
 Optional configuration:
@@ -68,8 +68,8 @@ Optional configuration:
 [StdRESTful]
     [[Nuvoler]]
         # Station credentials (required)
-        station_id = YOUR_STATION_ID
-        station_pass = YOUR_STATION_PASSWORD
+        station_id = YOUR_STATION_ID_HERE
+        station_pass = YOUR_STATION_PASSWORD_HERE
         
         # Enable or disable uploads (default: true)
         enabled = true
