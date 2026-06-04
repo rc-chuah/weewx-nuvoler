@@ -15,8 +15,8 @@ Minimal configuration:
 
 [StdRESTful]
     [[Nuvoler]]
-        station_id = YOUR_STATION_ID
-        station_pass = YOUR_STATION_PASSWORD
+        station_id = YOUR_STATION_ID_HERE
+        station_pass = YOUR_STATION_PASSWORD_HERE
 """
 
 # Handle Python 2 vs Python 3 differences
