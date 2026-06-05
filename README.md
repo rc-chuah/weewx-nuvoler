@@ -260,7 +260,7 @@ All wind values are rounded to 1 decimal place.
 The extension uploads weather data to Nuvoler using HTTP GET with the following format:
 
 ```
-GET /data/recibir.php?station_id=50&station_pass=12345&temperature=22.5&rh=65&mslp=1013.2&wind_dir=180&wind_avg=9.4&wind_max=15.1&wind_min=4.1&precip=2.4&uv=5&dewpoint=14.2 HTTP/1.1
+GET /data/recibir.php?station_id=YOUR_STATION_ID_HERE&station_pass=YOUR_STATION_PASSWORD_HERE&temperature=22.5&rh=65&mslp=1013.2&wind_dir=180&wind_avg=9.4&wind_max=15.1&wind_min=4.1&precip=2.4&uv=5&dewpoint=14.2 HTTP/1.1
 Host: www.nuvoler.com
 ```
 
@@ -421,7 +421,7 @@ All three unit tests should produce nearly identical results, confirming correct
 |-------|-------|----------|
 | **No uploads occurring** | Credentials missing or incorrect | Verify `station_id` and `station_pass` in `/etc/weewx/weewx.conf` match your Nuvoler account |
 | **Missing parameters in upload** | Weather station lacks sensors | Extension only uploads available parameters; ensure your station has required sensors (temperature, humidity, pressure, wind, etc.) |
-| **Connection errors** | Network or firewall issue | Test connectivity: `curl -v "https://www.nuvoler.com/data/recibir.php?station_id=YOUR_STATION_ID&station_pass=YOUR_STATION_PASSWORD&temperature=22.5&rh=65&mslp=1013.2&wind_dir=180&wind_avg=12.5&wind_min=8.0&wind_max=16.0&precip=2.4&uv=5&dewpoint=14.2"` |
+| **Connection errors** | Network or firewall issue | Test connectivity: `curl -v "https://www.nuvoler.com/data/recibir.php?station_id=YOUR_STATION_ID_HERE&station_pass=YOUR_STATION_PASSWORD_HERE&temperature=22.5&rh=65&mslp=1013.2&wind_dir=180&wind_avg=12.5&wind_min=8.0&wind_max=16.0&precip=2.4&uv=5&dewpoint=14.2"` |
 | **Incorrect unit conversion** | Wrong unit system configured | Check `/etc/weewx/weewx.conf` for correct `unit_system` setting (US, Metric, or MetricWX) |
 | **Wind minimum unrealistic** | Insufficient wind data | Wind minimum estimation improves with both avg & max; if only avg available, climatological ratio used; if only max, extreme value theory used |
 | **Extension not loading** | Python path or import error | Verify WeeWX installation; check logs with `debug = 2` enabled |
@@ -429,7 +429,7 @@ All three unit tests should produce nearly identical results, confirming correct
 ### Test Manually with curl
 
 ```bash
-curl -v "https://www.nuvoler.com/data/recibir.php?station_id=YOUR_STATION_ID&station_pass=YOUR_STATION_PASSWORD&temperature=22.5&rh=65&mslp=1013.2&wind_dir=180&wind_avg=12.5&wind_min=8.0&wind_max=16.0&precip=2.4&uv=5&dewpoint=14.2"
+curl -v "https://www.nuvoler.com/data/recibir.php?station_id=YOUR_STATION_ID_HERE&station_pass=YOUR_STATION_PASSWORD_HERE&temperature=22.5&rh=65&mslp=1013.2&wind_dir=180&wind_avg=12.5&wind_min=8.0&wind_max=16.0&precip=2.4&uv=5&dewpoint=14.2"
 ```
 
 ## Dependencies
