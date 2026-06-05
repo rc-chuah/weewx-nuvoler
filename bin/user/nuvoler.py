@@ -42,7 +42,6 @@ import weewx
 import weewx.manager
 import weewx.restx
 import weewx.units
-import weewx.wxformulas
 from weeutil.weeutil import to_bool
 
 
