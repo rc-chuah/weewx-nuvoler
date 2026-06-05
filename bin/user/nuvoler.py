@@ -1082,7 +1082,7 @@ if __name__ == "__main__":
     
     print("=" * 80)
     print("Test 3 - Purely MetricWX Units (weewx.METRICWX)")
-    print("Input: MetricWX units (°C, m/s, mbar/hPa, mm (L/m²)")
+    print("Input: MetricWX units (°C, m/s, mbar/hPa, mm (L/m²))")
     print("=" * 80)
     url_metricwx = t.format_url(r_metricwx)
     print(url_metricwx)
