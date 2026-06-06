@@ -976,8 +976,8 @@ class NuvolerThread(weewx.restx.RESTThread):
                         wind_max_mps if wind_max_mps else 0,
                         wind_min_mps, wind_min_knots))
         except (ValueError, TypeError) as e:
-            logdbg("Error estimating wind minimum: %s. Skipping wind_min." % str(e))
             # If estimation fails, don't include wind_min in upload
+            logdbg("Error estimating wind minimum: %s. Skipping wind_min." % str(e))
 
         # Hourly Precipitation (mm) (L/m²)
         if 'hourRain' in metric_record and metric_record['hourRain'] is not None:
