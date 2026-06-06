@@ -1,4 +1,4 @@
-# weewx-nuvoler
+# weewx-nuvoler t
 
 A powerful WeeWX extension that automatically uploads comprehensive weather station data to [Nuvoler.com](https://www.nuvoler.com/).
 
